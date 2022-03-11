@@ -1,3 +1,1 @@
-for (char& c: myStringLine){
-		// 	cout << c << endl;
-		// }
+std::cout << token << std::endl;
