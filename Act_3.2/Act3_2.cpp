@@ -1,29 +1,42 @@
 #include <iostream>
+#include <stdio.h>
 #include <fstream>
-#include <sstream>
-#include <cstdlib>
-#include <numeric>
+#include <ctype.h>
 #include <string>
 #include <vector>
-#include <thread>
-#include <cmath>
-#include <ctime>
-#include <regex>
 
 int main(){
 	std::string str;
-	std::ifstream myInputFile;
-	myInputFile.open("input.txt");
-	if (!myInputFile){
+	std::ifstream inputFile;
+	inputFile.open("input.txt");
+	if (!inputFile){
 		std::cout << "Unable to open file";
 		exit(1); // terminate with error
 	}
-	while (getline(myInputFile, str)){
-		// for (char& c: myStringLine){
-		// }
-		std::smatch matches;
-		std::regex reg("");
+	std::vector<std::string> vec;
+	while (getline(inputFile, str)){
+		std::string token = "";
+		for (char& s: str){
+			//Variables
+			if (isalpha(s)){
+				if (isupper(s) || islower(s)){
+					token = token + s;
+				} 
+			}
+			else if (isdigit(s)){
+				token = token + s;
+			}
+			else if (s == '_'){
+				token = token + s;
+			}
+			else{
+				vec.push_back(token);
+				vec.push_back("Variable");
+				token = "";
+			}
+		}
 	}
-	myInputFile.close();
+	std::cout << vec[0] << vec[1] << std::endl;
+	inputFile.close();
 	return 0;
 }
