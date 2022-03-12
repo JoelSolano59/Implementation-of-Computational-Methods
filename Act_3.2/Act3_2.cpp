@@ -14,83 +14,115 @@ void setToken(std::string t, std::string type){
 	token = "";
 }
 
-bool isVariable(const char s){
-	std::cout << token << std::endl;
-	if (isalpha(s)){
-		if (isupper(s) || islower(s)){
+void isVariable(std::string str){
+	for (char const &s : str){
+		if (isalpha(s)){
+			if (isupper(s) || islower(s)){
+				token = token + s;
+			}
+		} else if (isdigit(s) && token.length() > 0){
 			token = token + s;
-		}
-	}
-	else if (isdigit(s) && token.length() > 0){
-		token = token + s;
-	}
-	else if (s == '_' && token.length() > 0){
-		token = token + s;
-	}
-	else{
-		if (token.length() > 0){
-			setToken(token, "Variable");
-			return true;
+		} else if (s == '_' && token.length() > 0){
+			token = token + s;
 		} else {
-			return false;
+			if (token.length() > 0){
+				setToken(token, "Variable");
+			}
 		}
+	}
+	if (token.length() > 0){
+		setToken(token, "Variable");
 	}
 }
 
-bool isOperation(const char s){
-	bool res = false;
-	switch (s){
-	case '=':
-		token = '=';
-		setToken(token, "Asignacion");
-		res = true;
-		break;
-	case '+':
-		token = '+';
-		setToken(token, "Suma");
-		res = true;
-		break;
-	case '-':
-		token = '-';
-		setToken(token, "Resta");
-		res = true;
-		break;
-	case '*':
-		token = '*';
-		setToken(token, "Multiplicacion");
-		res = true;
-		break;
-	case '/':
-		token = '/';
-		setToken(token, "Division");
-		res = true;
-		break;
-	case '^':
-		token = '^';
-		setToken(token, "Exponente");
-		res = true;
-		break;
-	default:
-		break;
+void isInteger(std::string str){
+	for (char const &s : str){
+		if (isdigit(s)){
+			token = token + s;
+		}
+		else{
+			if (isdigit && token.length() > 0){
+				setToken(token, "Entero");
+			}
+		}
 	}
-	return res;
+	if (token.length() > 0){
+		setToken(token, "Entero");
+	}
+}
+
+bool isComment(std::string str){
+	std::string prefix1 = "/";
+	std::string prefix2 = "//";
+	for (char const &s : str){
+		if (s == '/'){
+			if (token == ""){
+				token = token + s;
+			} else if (token == prefix1){
+				token = token + s;
+			}
+		} else if (prefix2 == token.substr(0, prefix2.size())){
+			token = token + s;
+		}
+	}
+	if (prefix2 == token.substr(0, prefix2.size()) && token.length() >= 2){
+		setToken(token, "Comentario");
+		return true;
+	} else {
+		token = "";
+		return false;
+	}
+}
+
+void isOperation(std::string str){
+	for (char const &s : str){
+		switch (s){
+		case '=':
+			setToken("=", "Asignacion");
+			break;
+		case '+':
+			setToken("+", "Suma");
+			break;
+		case '-':
+			setToken("-", "Resta");
+			break;
+		case '*':
+			setToken("*", "Multiplicacion");
+			break;
+		case '/':
+			setToken("/", "Division");
+			break;
+		case '^':
+			setToken("^", "Exponente");
+			break;
+		case '(':
+			setToken("(", "Parentesis que abre");
+			break;
+		case ')':
+			setToken(")", "Parentesis que cierra");
+			break;
+		default:
+			break;
+		}
+	}
 }
 
 int main(){
 	std::string str;
 	std::ifstream inputFile;
+	int line = 0;
 	inputFile.open("input.txt");
 	if (!inputFile){
 		std::cout << "Unable to open file";
 		exit(1); // terminate with error
 	}
 	while (getline(inputFile, str)){
-		for (char const &s : str){
-			// Variables
-			isVariable(s);
-			// Operadores
-			isOperation(s);
-		}
+		token = "";
+		bool com = isComment(str);
+		isVariable(str);
+		isOperation(str);
+		isInteger(str);
+		line++;
 	}
 	for (int i = 0; i < vec.size(); i = i + 2){
 		std::cout << vec[i] << " " << vec[i + 1] << std::endl;

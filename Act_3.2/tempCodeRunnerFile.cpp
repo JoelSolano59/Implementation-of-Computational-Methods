@@ -1,1 +1,1 @@
-std::cout << token << std::endl;
+token + s
