@@ -7,8 +7,8 @@
 
 std::vector<std::string> vec;
 std::string token = "";
-std::string tv, tr = "";
-int qv, qr = 0;
+std::string tv, tr, ti = "";
+int qv, qr, qi = 0;
 
 void setToken(std::string t, std::string type){
 	vec.push_back(t);
@@ -25,6 +25,10 @@ void setState(char dfa, int q, char const t){
 		qr = q;
 		tr = tr + t;
 		break;
+	case 'i':
+		qi = q;
+		ti = ti + t;
+		break;
 	default:
 		break;
 	}
@@ -40,6 +44,41 @@ void resetState(char dfa){
 		qr = 0;
 		tr = "";
 		break;
+	case 'i':
+		qi = 0;
+		ti = "";
+		break;
+	default:
+		break;
+	}
+}
+
+void setOperation(char const s){
+	switch (s){
+	case '=':
+		setToken("=", "Asignacion");
+		break;
+	case '+':
+		setToken("+", "Suma");
+		break;
+	case '-':
+		setToken("-", "Resta");
+		break;
+	case '*':
+		setToken("*", "Multiplicacion");
+		break;
+	case '/':
+		setToken("/", "Division");
+		break;
+	case '^':
+		setToken("^", "Exponente");
+		break;
+	case '(':
+		setToken("(", "Parentesis que abre");
+		break;
+	case ')':
+		setToken(")", "Parentesis que cierra");
+		break;
 	default:
 		break;
 	}
@@ -49,83 +88,23 @@ void isVariable(std::string str){
 	for (char const &s : str){
 		switch (qv){
 		case 0:
-			if (isalpha(s) && islower(s)){
+			if (isalpha(s) && (islower(s) || isupper(s))){
 				setState('v', 1, s);
-			} else if (isalpha(s) && isupper(s)){
-				setState('v', 2, s);
 			} else {
 				resetState('v');
 			}
 			break;
 		case 1:
-			if (s == '(' || s == ')'){
+			if (s == '=' || s == '+' || s == '-' || s == '*' || s == '/' || s == '^' || s == '(' || s == ')'){
 				setToken(tv, "Variable");
+				setOperation(s);
 				resetState('v');
-			} else if (isalpha(s) && islower(s)){
+			} else if (isalpha(s) && (islower(s) || isupper(s))){
 				setState('v', 1, s);
-			} else if (isalpha(s) && isupper(s)){
-				setState('v', 2, s);
 			} else if (isdigit(s)){
-				setState('v', 3, s);
-			} else if (s == '_'){
-				setState('v', 4, s);
-			} else if (s == ' '){
-				setToken(tv, "Variable");
-				resetState('v');
-			} else {
-				resetState('v');
-			}
-			break;
-		case 2:
-			if (s == '(' || s == ')'){
-				setToken(tv, "Variable");
-				resetState('v');
-			} else if (isalpha(s) && islower(s)){
 				setState('v', 1, s);
-			} else if (isalpha(s) && isupper(s)){
-				setState('v', 2, s);
-			} else if (isdigit(s)){
-				setState('v', 3, s);
 			} else if (s == '_'){
-				setState('v', 4, s);
-			} else if (s == ' '){
-				setToken(tv, "Variable");
-				resetState('v');
-			} else {
-				resetState('v');
-			}
-			break;
-		case 3:
-			if (s == '(' || s == ')'){
-				setToken(tv, "Variable");
-				resetState('v');
-			} else if (isalpha(s) && islower(s)){
 				setState('v', 1, s);
-			} else if (isalpha(s) && isupper(s)){
-				setState('v', 2, s);
-			} else if (isdigit(s)){
-				setState('v', 3, s);
-			} else if (s == '_'){
-				setState('v', 4, s);
-			} else if (s == ' '){
-				setToken(tv, "Variable");
-				resetState('v');
-			} else {
-				resetState('v');
-			}
-			break;
-		case 4:
-			if (s == '(' || s == ')'){
-				setToken(tv, "Variable");
-				resetState('v');
-			} else if (isalpha(s) && islower(s)){
-				setState('v', 1, s);
-			} else if (isalpha(s) && isupper(s)){
-				setState('v', 2, s);
-			} else if (isdigit(s)){
-				setState('v', 3, s);
-			} else if (s == '_'){
-				setState('v', 4, s);
 			} else if (s == ' '){
 				setToken(tv, "Variable");
 				resetState('v');
@@ -140,34 +119,49 @@ void isVariable(std::string str){
 	if (tv.length() > 0 && (qv == 1 || qv == 2 || qv == 3 || qv == 4)){
 		setToken(tv, "Variable");
 	}
-		// if (isalpha(s)){
-		// 	if (isupper(s) || islower(s)){
-		// 		token = token + s;
-		// 	}
-		// } else if (isdigit(s) && token.length() > 0){
-		// 	token = token + s;
-		// } else if (s == '_' && token.length() > 0){
-		// 	token = token + s;
-		// } else {
-		// 	if (token.length() > 0){
-		// 		setToken(token, "Variable");
-		// 	}
-		// }
 }
 
 void isInteger(std::string str){
 	for (char const &s : str){
-		if (isdigit(s)){
-			token = token + s;
-		}
-		else{
-			if (isdigit && token.length() > 0){
-				setToken(token, "Entero");
+		switch (qi){
+		case 0:
+			if (s == '+' || s == '-'){
+				setState('i', 1, s);
+			} else if (isdigit(s)){
+				setState('i', 2, s);
+			} else {
+				resetState('i');
 			}
+			break;
+		case 1:
+			if (isdigit(s)){
+				setState('i', 2, s);
+			} else {
+				resetState('i');
+			}
+			break;
+		case 2:
+			if (s == '.') {
+				resetState('i');
+			} else if (isdigit(s)){
+				setState('i', 2, s);
+			} else if (s == '=' || s == '+' || s == '-' || s == '*' || s == '/' || s == '^' || s == '(' || s == ')'){
+				setToken(ti, "Entero");
+				setOperation(s);
+				resetState('i');
+			} else if (s == ' '){
+				setToken(ti, "Entero");
+				resetState('i');
+			} else {
+				resetState('i');
+			}
+			break;
+		default:
+			break;
 		}
 	}
-	if (token.length() > 0){
-		setToken(token, "Entero");
+	if (ti.length() > 0 && (qi == 2)){
+		setToken(ti, "Entero");
 	}
 }
 
@@ -241,7 +235,11 @@ void isReal(std::string str){
 				resetState('r');
 			}
 		case 7:
-			if (s == ' '){
+			if (s == '=' || s == '+' || s == '-' || s == '*' || s == '/' || s == '^' || s == '(' || s == ')'){
+				setToken(tr, "Real");
+				setOperation(s);
+				resetState('r');
+			} else if (s == ' '){
 				setToken(tr, "Real");
 				resetState('r');
 			} else {
@@ -280,39 +278,6 @@ bool isComment(std::string str){
 	}
 }
 
-void isOperation(std::string str){
-	for (char const &s : str){
-		switch (s){
-		case '=':
-			setToken("=", "Asignacion");
-			break;
-		case '+':
-			setToken("+", "Suma");
-			break;
-		case '-':
-			setToken("-", "Resta");
-			break;
-		case '*':
-			setToken("*", "Multiplicacion");
-			break;
-		case '/':
-			setToken("/", "Division");
-			break;
-		case '^':
-			setToken("^", "Exponente");
-			break;
-		case '(':
-			setToken("(", "Parentesis que abre");
-			break;
-		case ')':
-			setToken(")", "Parentesis que cierra");
-			break;
-		default:
-			break;
-		}
-	}
-}
-
 int main(){
 	std::string str;
 	std::ifstream inputFile;
@@ -325,8 +290,8 @@ int main(){
 		// bool com = isComment(str);
 		isVariable(str);
 		// isOperation(str);
-		// isInteger(str);
 		isReal(str);
+		isInteger(str);
 	}
 	for (int i = 0; i < vec.size(); i = i + 2){
 		std::cout << vec[i] << " " << vec[i + 1] << std::endl;
