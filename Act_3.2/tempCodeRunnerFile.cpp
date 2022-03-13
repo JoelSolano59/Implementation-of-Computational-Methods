@@ -1,1 +1,3 @@
-token + s
+setToken(tr, "Real");
+			qr = 0;
+			tr = "";

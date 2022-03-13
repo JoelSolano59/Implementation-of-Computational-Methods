@@ -7,11 +7,22 @@
 
 std::vector<std::string> vec;
 std::string token = "";
+std::string tr = "";
+int qr = 0;
 
 void setToken(std::string t, std::string type){
 	vec.push_back(t);
 	vec.push_back(type);
-	token = "";
+}
+
+void setState(int q, char const t){
+	qr = q;
+	tr = tr + t;
+}
+
+void resetState(){
+	qr = 0;
+	tr = "";
 }
 
 void isVariable(std::string str){
@@ -48,6 +59,92 @@ void isInteger(std::string str){
 	}
 	if (token.length() > 0){
 		setToken(token, "Entero");
+	}
+}
+
+void isReal(std::string str){
+	for (char const &s : str){
+		switch (qr){
+		case 0:
+			if (isdigit(s)){
+				setState(1, s);
+			} else if (s == '+' || s == '-'){
+				setState(2, s);
+			} else if (s == '.'){
+				setState(3, s);
+			} else {
+				resetState();
+			}
+			break;
+		case 1:
+			if (isdigit(s)){
+				setState(1, s);
+			} else if (s == '.'){
+				setState(3, s);
+			} else {
+				resetState();
+			}
+			break;
+		case 2:
+			if (isdigit(s)){
+				setState(1, s);
+			} else if (s == '.'){
+				setState(3, s);
+			} else {
+				resetState();
+			}
+			break;
+		case 3:
+			if (isdigit(s)){
+				setState(4, s);
+			} else if (s == ' '){
+				setToken(tr, "Real");
+				resetState();
+			} else {
+				resetState();
+			}
+			break;
+		case 4:
+			if (isdigit(s)){
+				setState(4, s);
+			} else if (s == 'e' || s == 'E'){
+				setState(5, s);
+			} else if (s == ' '){
+				setToken(tr, "Real");
+				resetState();
+			} else {
+				resetState();
+			}
+			break;
+		case 5:
+			if (isdigit(s)){
+				setState(7, s);
+			} else if (s == '+' || s == '-'){
+				setState(6, s);
+			} else {
+				resetState();
+			}
+			break;
+		case 6:
+			if (isdigit(s)){
+				setState(7, s);
+			} else {
+				resetState();
+			}
+		case 7:
+			if (s == ' '){
+				setToken(tr, "Real");
+				resetState();
+			} else {
+				resetState();
+			}
+			break;
+		default:
+			break;
+		}
+	}
+	if (tr.length() > 0 && (qr == 4 || qr == 7)){
+		setToken(tr, "Real");
 	}
 }
 
@@ -110,19 +207,17 @@ void isOperation(std::string str){
 int main(){
 	std::string str;
 	std::ifstream inputFile;
-	int line = 0;
 	inputFile.open("input.txt");
 	if (!inputFile){
 		std::cout << "Unable to open file";
 		exit(1); // terminate with error
 	}
 	while (getline(inputFile, str)){
-		token = "";
-		bool com = isComment(str);
-		isVariable(str);
-		isOperation(str);
-		isInteger(str);
-		line++;
+		// bool com = isComment(str);
+		// isVariable(str);
+		// isOperation(str);
+		// isInteger(str);
+		isReal(str);
 	}
 	for (int i = 0; i < vec.size(); i = i + 2){
 		std::cout << vec[i] << " " << vec[i + 1] << std::endl;
