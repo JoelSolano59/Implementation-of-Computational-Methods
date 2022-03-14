@@ -7,8 +7,9 @@
 
 std::vector<std::string> vec;
 std::string token = "";
-std::string tv, tr, ti = "";
-int qg, qv, qr, qi = 0;
+int qg = 0; 
+//std::string tv, tr, ti = "";
+//int qv, qr, qi = 0;
 
 void setToken(std::string t, std::string type){
 	vec.push_back(t);
@@ -283,21 +284,25 @@ bool isComment(std::string str){
 }
 */
 void DFA(std::string str){
+	bool error = false;
 	for (char const &s : str){
 		switch (qg){
 		case 0:
-			if (s == '=' || s == '+' || s == '*' || s == '^' || s == '(' || s == ')'){
+			if ((s == '=' || s == '+' || s == '*' || s == '^' || s == '(' || s == ')') && error == false){
 				setOperation(s);
 				resetState();
-			} else if (s == '/'){
+			} else if (s == '/' && error == false){
 				setState(9, s);
-			} else if (s == '-'){
+			} else if (s == '-' && error == false){
 				setState(2, s);
-			} else if (isalpha(s) && (islower(s) || isupper(s))){
+			} else if (isalpha(s) && (islower(s) || isupper(s)) && error == false){
 				setState(1, s);
-			} else if (isdigit(s)){
+			} else if (isdigit(s) && error == false){
 				setState(3, s);
+			} else if (s == ' ' && error == false){
+				resetState();
 			} else {
+				error = true;
 				resetState();
 			}
 			break;
@@ -324,22 +329,24 @@ void DFA(std::string str){
 			} else if (s == '.'){
 				setState(4, s);
 			} else if (s == ' ' && token == "-"){
-				setOperation(s);
+				setOperation('-');
 				resetState();
 			} else {
 				resetState();
 			}
 			break;
 		case 3:
-			if (s == '=' || s == '+' || s == '-' || s == '*' || s == '/' || s == '^' || s == '(' || s == ')'){
-				setToken(token, "Variable");
+			if (s == '=' || s == '+' || s == '-' || s == '*' || s == '^' || s == '(' || s == ')'){
+				setToken(token, "Entero");
 				setOperation(s);
 				resetState();
 			} else if (s == '/'){
 				setState(9, s);
 			} else if (isdigit(s)){
 				setState(3, s);
-			}  else {
+			} else if (s == '.') {
+				setState(4, s);
+			} else {
 				resetState();
 			}
 			break;
@@ -349,8 +356,9 @@ void DFA(std::string str){
 			} else {
 				resetState();
 			}
+			break;
 		case 5:
-			if (s == '=' || s == '+' || s == '-' || s == '*' || s == '/' || s == '^' || s == '(' || s == ')'){
+			if (s == '=' || s == '+' || s == '-' || s == '*' || s == '^' || s == '(' || s == ')'){
 				setToken(token, "Real");
 				setOperation(s);
 				resetState();
@@ -367,6 +375,7 @@ void DFA(std::string str){
 			}  else {
 				resetState();
 			}
+			break;
 		case 6:
 			if (s == '-'){
 				setState(7, s);
@@ -375,12 +384,14 @@ void DFA(std::string str){
 			} else {
 				resetState();
 			}
+			break;
 		case 7:
 			if (isdigit(s)){
 				setState(8, s);
 			} else {
 				resetState();
 			}
+			break;
 		case 8:
 			if (s == '=' || s == '+' || s == '-' || s == '*' || s == '^' || s == '(' || s == ')'){
 				setToken(token, "Real");
@@ -420,7 +431,7 @@ void DFA(std::string str){
 			setToken(token, "Variable");
 			break;
 		case 3:
-			setToken(token, "Variable");
+			setToken(token, "Entero");
 			break;
 		case 5:
 			setToken(token, "Real");
@@ -429,13 +440,14 @@ void DFA(std::string str){
 			setToken(token, "Real");
 			break;
 		case 10:
-			setToken(token, "Variable");
+			setToken(token, "Comentario");
 			break;
 		default:
 			resetState();
 			break;
 		}
 	}
+	resetState();
 }
 
 int main(){
@@ -443,8 +455,8 @@ int main(){
 	std::ifstream inputFile;
 	inputFile.open("input.txt");
 	if (!inputFile){
-		std::cout << "Unable to open file";
-		exit(1); // terminate with error
+		std::cout << "No se pueede abrir el archivo input.txt";
+		exit(1);
 	}
 	while (getline(inputFile, str)){
 		// bool com = isComment(str);
@@ -455,7 +467,7 @@ int main(){
 		DFA(str);
 	}
 	for (int i = 0; i < vec.size(); i = i + 2){
-		std::cout << vec[i] << " " << vec[i + 1] << std::endl;
+		std::cout << vec[i] << "\t" << vec[i + 1] << std::endl;
 	}
 
 	inputFile.close();
