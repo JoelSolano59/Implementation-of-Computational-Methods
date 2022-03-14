@@ -12,6 +12,7 @@ std::vector<std::string> vec;	// Vector donde guardaremos nuestra salida.
 std::string token = "";			// String donde guardaremos el token.
 int qg = 0; 					// Entero que estara al tanto de los estados del DFA.
 int line = 1;					// Entero que estara al tanto de las lineas del texto.
+bool error = false;				// Booleano para detectar errores.
 
 // Funcion para agregar el token y su tipo al vector.
 void setToken(std::string t, std::string type){
@@ -66,7 +67,7 @@ void setOperation(char const s){
 
 // Funcion de DFA, recibe la linea completa como parametro.
 void DFA(std::string str){
-	bool error = false;				// Booleano para detectar errores.
+	error = false;					// Booleano empieza en falso por cada linea de texto..
 	for (char const &s : str){		// Ciclo for para cada caracter de la linea de texto.
 		switch (qg){				// Switch para cada estado de nuestro DFA.
 		case 0:						// En caso 0, tratamos de identificar primero que clase de token es.
@@ -83,9 +84,9 @@ void DFA(std::string str){
 				setState(3, s);
 			} else if (s == ' ' && error == false){		// Los espacios no se asignan pero ayudan a determinar cuando un token a finalizado.
 				resetState();
-			} else {									// Si no se cumple ninguna condicion if, detectamos que es un error y no nos permite agregar nada al token hasta finalizar la linea de texto.
+			} else {									// Si no se cumple ninguna condicion if, detectamos que es un error.
 				error = true;
-				resetState();
+				setState(11, s);
 			}
 			break;
 		case 1:		// En caso 1, el token es posible a ser una variable.
@@ -203,6 +204,9 @@ void DFA(std::string str){
 		case 10:	// En el caso 10, sabemos que es un comentario, por lo que agregaremos cada caracter hasta terminar la linea de texto.
 			setState(10, s);
 			break;
+		case 11:	// En el caso 11, sabemos que es un error, por lo que agregaremos cada caracter hasta terminar la linea de texto.
+			setState(11, s);
+			break;
 		default:	// Ninguno de los casos.
 			break;
 		}
@@ -224,6 +228,9 @@ void DFA(std::string str){
 		case 10:				// En el caso 10, es el estado final para comentarios.
 			setToken(token, "Comentario");
 			break;
+		case 11:				// En el caso 11, es el estado para errores.
+			setToken(token, "Error");
+			break;
 		default:				// Si no es ninguno de los estados anteriores, nuestro token no es valido y no lo agregamos a nuestro vector.
 			resetState();
 			break;
@@ -244,6 +251,9 @@ int main(){
 	while (getline(inputFile, str)){	// Ciclo while para mandar cada linea del texto input.txt a la funcion DFA como parametro.
 		DFA(str);
 		line++;
+		if (error == true){				// Si encontramos un error en la ultima linea del texto, detenemos el proceso e imprimimos directamente.
+			break;
+		}
 	}
 	printf("%-10s%-50s%-20s\n", "Linea", "Token", "Tipo"); 		// Imprime fila para determinar las columnas de la salida (Token y Tipo).
 	for (int i = 0; i < vec.size(); i = i+3){		// Ciclo for para imprimir el resultado de salida.
