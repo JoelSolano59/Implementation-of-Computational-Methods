@@ -8,49 +8,53 @@
 std::vector<std::string> vec;
 std::string token = "";
 std::string tv, tr, ti = "";
-int qv, qr, qi = 0;
+int qg, qv, qr, qi = 0;
 
 void setToken(std::string t, std::string type){
 	vec.push_back(t);
 	vec.push_back(type);
 }
 
-void setState(char dfa, int q, char const t){
-	switch (dfa){
-	case 'v':
-		qv = q;
-		tv = tv + t;
-		break;
-	case 'r':
-		qr = q;
-		tr = tr + t;
-		break;
-	case 'i':
-		qi = q;
-		ti = ti + t;
-		break;
-	default:
-		break;
-	}
+void setState(int q, char const t){
+	// switch (dfa){
+	// case 'v':
+	// 	qv = q;
+	// 	tv = tv + t;
+	// 	break;
+	// case 'r':
+	// 	qr = q;
+	// 	tr = tr + t;
+	// 	break;
+	// case 'i':
+	// 	qi = q;
+	// 	ti = ti + t;
+	// 	break;
+	// default:
+	// 	break;
+	// }
+	qg = q;
+	token = token + t;
 }
 
-void resetState(char dfa){
-	switch (dfa){
-	case 'v':
-		qv = 0;
-		tv = "";
-		break;
-	case 'r':
-		qr = 0;
-		tr = "";
-		break;
-	case 'i':
-		qi = 0;
-		ti = "";
-		break;
-	default:
-		break;
-	}
+void resetState(){
+	// switch (dfa){
+	// case 'v':
+	// 	qv = 0;
+	// 	tv = "";
+	// 	break;
+	// case 'r':
+	// 	qr = 0;
+	// 	tr = "";
+	// 	break;
+	// case 'i':
+	// 	qi = 0;
+	// 	ti = "";
+	// 	break;
+	// default:
+	// 	break;
+	// }
+	qg = 0;
+	token = "";
 }
 
 void setOperation(char const s){
@@ -83,7 +87,7 @@ void setOperation(char const s){
 		break;
 	}
 }
-
+/*
 void isVariable(std::string str){
 	for (char const &s : str){
 		switch (qv){
@@ -277,6 +281,162 @@ bool isComment(std::string str){
 		return false;
 	}
 }
+*/
+void DFA(std::string str){
+	for (char const &s : str){
+		switch (qg){
+		case 0:
+			if (s == '=' || s == '+' || s == '*' || s == '^' || s == '(' || s == ')'){
+				setOperation(s);
+				resetState();
+			} else if (s == '/'){
+				setState(9, s);
+			} else if (s == '-'){
+				setState(2, s);
+			} else if (isalpha(s) && (islower(s) || isupper(s))){
+				setState(1, s);
+			} else if (isdigit(s)){
+				setState(3, s);
+			} else {
+				resetState();
+			}
+			break;
+		case 1:
+			if (s == '=' || s == '+' || s == '-' || s == '*' || s == '/' || s == '^' || s == '(' || s == ')'){
+				setToken(token, "Variable");
+				setOperation(s);
+				resetState();
+			} else if (s == '/'){
+				setToken(token, "Variable");
+				setState(9, s);
+			} else if ((isalpha(s) && (islower(s) || isupper(s))) || isdigit(s) || s == '_'){
+				setState(1, s);
+			} else if (s == ' '){
+				setToken(token, "Variable");
+				resetState();
+			} else {
+				resetState();
+			}
+			break;
+		case 2:
+			if (isdigit(s)){
+				setState(3, s);
+			} else if (s == '.'){
+				setState(4, s);
+			} else if (s == ' ' && token == "-"){
+				setOperation(s);
+				resetState();
+			} else {
+				resetState();
+			}
+			break;
+		case 3:
+			if (s == '=' || s == '+' || s == '-' || s == '*' || s == '/' || s == '^' || s == '(' || s == ')'){
+				setToken(token, "Variable");
+				setOperation(s);
+				resetState();
+			} else if (s == '/'){
+				setState(9, s);
+			} else if (isdigit(s)){
+				setState(3, s);
+			}  else {
+				resetState();
+			}
+			break;
+		case 4:
+			if (isdigit(s)){
+				setState(5, s);
+			} else {
+				resetState();
+			}
+		case 5:
+			if (s == '=' || s == '+' || s == '-' || s == '*' || s == '/' || s == '^' || s == '(' || s == ')'){
+				setToken(token, "Real");
+				setOperation(s);
+				resetState();
+			} else if (s == '/'){
+				setToken(token, "Real");
+				setState(9, s);
+			} else if (s == ' '){
+				setToken(token, "Real");
+				resetState();
+			} else if (isdigit(s)){
+				setState(5, s);
+			} else if (s == 'e' || s == 'E'){
+				setState(6, s);
+			}  else {
+				resetState();
+			}
+		case 6:
+			if (s == '-'){
+				setState(7, s);
+			} else if (isdigit(s)) {
+				setState(8, s);
+			} else {
+				resetState();
+			}
+		case 7:
+			if (isdigit(s)){
+				setState(8, s);
+			} else {
+				resetState();
+			}
+		case 8:
+			if (s == '=' || s == '+' || s == '-' || s == '*' || s == '^' || s == '(' || s == ')'){
+				setToken(token, "Real");
+				setOperation(s);
+				resetState();
+			} else if (s == '/'){
+				setToken(token, "Real");
+				setState(9, s);
+			} else {
+				resetState();
+			}
+			break;
+		case 9:
+			if ((s == '(' || s == ')')){
+				setOperation('/');
+				setOperation(s);
+				resetState();
+			} else if (s == ' '){
+				setOperation('/');
+				resetState();
+			} else if (s == '/' && token == "/"){
+				setState(10, s);
+			} else {
+				resetState();
+			}
+			break;
+		case 10:
+			setState(10, s);
+			break;
+		default:
+			break;
+		}
+	}
+	if (token.length() > 0){
+		switch (qg){
+		case 1:
+			setToken(token, "Variable");
+			break;
+		case 3:
+			setToken(token, "Variable");
+			break;
+		case 5:
+			setToken(token, "Real");
+			break;
+		case 8:
+			setToken(token, "Real");
+			break;
+		case 10:
+			setToken(token, "Variable");
+			break;
+		default:
+			resetState();
+			break;
+		}
+	}
+}
 
 int main(){
 	std::string str;
@@ -288,10 +448,11 @@ int main(){
 	}
 	while (getline(inputFile, str)){
 		// bool com = isComment(str);
-		isVariable(str);
+		//sVariable(str);
 		// isOperation(str);
-		isReal(str);
-		isInteger(str);
+		//isReal(str);
+		//isInteger(str);
+		DFA(str);
 	}
 	for (int i = 0; i < vec.size(); i = i + 2){
 		std::cout << vec[i] << " " << vec[i + 1] << std::endl;
