@@ -80,6 +80,8 @@ void DFA(std::string str){
 				setState(2, s);
 			} else if (isalpha(s) && (islower(s) || isupper(s)) && error == false){		// Si es una variable.
 				setState(1, s);
+			} else if (s == '0' && error == false) {	// Si es un octal.
+				setState(12, s);
 			} else if (isdigit(s) && error == false){	// Si es un entero o real.
 				setState(3, s);
 			} else if (s == ' ' && error == false){		// Los espacios no se asignan pero ayudan a determinar cuando un token a finalizado.
@@ -207,6 +209,20 @@ void DFA(std::string str){
 		case 11:	// En el caso 11, sabemos que es un error, por lo que agregaremos cada caracter hasta terminar la linea de texto.
 			setState(11, s);
 			break;
+		case 12:	// En el caso 12, sabemos que es un octal.
+			if (s == '=' || s == '+' || s == '-' || s == '*' || s == '^' || s == '(' || s == ')'){	// Si es un operador.
+				setToken(token, "Octal");	
+				setOperation(s);
+				resetState();
+			} else if (s == '/'){								// Si es division o comentario.
+				setToken(token, "Octal");
+				setState(9, s);
+			} else if (isdigit(s) && (s != '8' && s!= '9')) {	// Si es un numero dentro del lenguaje de los octales.
+				setState(12, s);
+			} else {											// Si se reconoce otro caracter que no sea un operador, un caracter especial o comentario, entonces tenemos un octal no valido.
+				resetState();
+			}
+			break;
 		default:	// Ninguno de los casos.
 			break;
 		}
@@ -230,6 +246,9 @@ void DFA(std::string str){
 			break;
 		case 11:				// En el caso 11, es el estado para errores.
 			setToken(token, "Error");
+			break;
+		case 12:				// En el caso 11, es el estado para octales.
+			setToken(token, "Octal");
 			break;
 		default:				// Si no es ninguno de los estados anteriores, nuestro token no es valido y no lo agregamos a nuestro vector.
 			resetState();
