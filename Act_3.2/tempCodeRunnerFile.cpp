@@ -1,1 +1,2 @@
-&& last != "_"
+
+	inputFile.close();	//

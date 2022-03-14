@@ -5,14 +5,17 @@
 #include <ctype.h>
 #include <string>
 #include <vector>
+#include <cstring>
 
 // Declaramos nuestras variables globales.
 std::vector<std::string> vec;	// Vector donde guardaremos nuestra salida.
 std::string token = "";			// String donde guardaremos el token.
 int qg = 0; 					// Entero que estara al tanto de los estados del DFA.
+int line = 1;					// Entero que estara al tanto de las lineas del texto.
 
 // Funcion para agregar el token y su tipo al vector.
 void setToken(std::string t, std::string type){
+	vec.push_back(std::to_string(line));
 	vec.push_back(t);
 	vec.push_back(type);
 }
@@ -240,9 +243,11 @@ int main(){
 	}
 	while (getline(inputFile, str)){	// Ciclo while para mandar cada linea del texto input.txt a la funcion DFA como parametro.
 		DFA(str);
+		line++;
 	}
-	for (int i = 0; i < vec.size(); i = i + 2){		// Ciclo for para imprimir el resultado de salida.
-		std::cout << vec[i] << "\t" << vec[i + 1] << std::endl;
+	printf("%-10s%-50s%-20s\n", "Linea", "Token", "Tipo"); 		// Imprime fila para determinar las columnas de la salida (Token y Tipo).
+	for (int i = 0; i < vec.size(); i = i+3){		// Ciclo for para imprimir el resultado de salida.
+		printf("%-10s%-50s%-20s\n", vec[i].c_str(), vec[i+1].c_str(), vec[i+2].c_str());
 	}
 	inputFile.close();	// Cerramos el archivo input.txt
 	return 0;			// Fin de la funcion principal.
