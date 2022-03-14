@@ -1,3 +1,11 @@
+/*
+Implementation of Computational Methods (Gpo 601)
+Actividad 3.2 Programando un DFA
+
+Joel Isaias Solano Ocampo | A01639289
+Github: https://github.com/JoelSolano59/Implementation-of-Computational-Methods/tree/main/Act_3.2
+*/
+
 // Inluimos las librerias necesarias.
 #include <iostream>
 #include <stdio.h>
