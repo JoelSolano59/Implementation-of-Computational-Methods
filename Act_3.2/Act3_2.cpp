@@ -219,8 +219,23 @@ void DFA(std::string str){
 				setState(9, s);
 			} else if (isdigit(s) && (s != '8' && s!= '9')) {	// Si es un numero dentro del lenguaje de los octales.
 				setState(12, s);
+			} else if (s == 'x') {								// Si es hexadecimal.
+				setState(13, s);
 			} else {											// Si se reconoce otro caracter que no sea un operador, un caracter especial o comentario, entonces tenemos un octal no valido.
 				resetState();
+			}
+			break;
+		case 13:	// En el caso 13, sabemos que es un hexadecimal.
+			if (s == '=' || s == '+' || s == '-' || s == '*' || s == '^' || s == '(' || s == ')'){	// Si es un operador.
+				setOperation(s);
+				resetState();
+			} else if (s == '/'){	// Si es division o comentario.
+				setState(9, s);
+			} else if (isdigit(s) || (isupper(s) && (s == 'A' || s == 'B' || s == 'C' || s == 'D' || s == 'E' || s == 'F'))) {	// Si es un numero dentro del lenguaje de los octales.
+				setState(13, s);
+			} else {				// Si se reconoce otro caracter que no sea un operador, un caracter especial o comentario, entonces tenemos un hexadecimal no valido.
+				error = true;
+				setState(11, s);
 			}
 			break;
 		default:	// Ninguno de los casos.
@@ -249,6 +264,9 @@ void DFA(std::string str){
 			break;
 		case 12:				// En el caso 11, es el estado para octales.
 			setToken(token, "Octal");
+			break;
+		case 13:				// En el caso 13, es el estado para octales.
+			setToken(token, "Hexadecimal");
 			break;
 		default:				// Si no es ninguno de los estados anteriores, nuestro token no es valido y no lo agregamos a nuestro vector.
 			resetState();
