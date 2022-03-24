@@ -10,7 +10,6 @@ int main(void){
 
     yyin = fopen("input.txt","r");
     yyout = fopen("output.txt","w");
-
     int ntoken = yylex();
     while (ntoken){
         ntoken = yylex();
