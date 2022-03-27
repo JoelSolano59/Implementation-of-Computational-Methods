@@ -1,0 +1,134 @@
+.comentario{
+    background-color: darkblue;
+    color: white;
+}
+
+.definir, .incluir{
+    background-color: darkcyan;
+    color: white;
+}
+
+.libreria{
+    background-color: darkgoldenrod;
+    color: white;
+}
+
+.bloque{
+    background-color: darkgray;
+    color: white;
+}
+
+.funcion{
+    background-color: darkgreen;
+    color: white;
+}
+
+.elemento_vector{
+    background-color: darkgrey;
+    color: black;
+}
+
+.delimitador{
+    background-color: darkkhaki;
+    color: black;
+}
+
+.comillas{
+    background-color: darkmagenta;
+    color: white;
+}
+
+.nula{
+    background-color: darkolivegreen;
+    color: white;
+}
+
+.palabra_reservada{
+    background-color: darkorange;
+    color: black;
+}
+
+.tipo_variable{
+    background-color: darkorchid;
+    color: white;
+}
+
+.estado{
+    background-color: darkred;
+    color: white;
+}
+
+.bucle{
+    background-color: darksalmon;
+    color: black;
+}
+
+.etiqueta{
+    background-color: darkseagreen;
+    color: black;
+}
+
+.salto{
+    background-color: darkslateblue;
+    color: white;
+}
+
+.seleccion{
+    background-color:aqua;
+    color: black;
+}
+
+.salida_consola, .entrada_consola{
+    background-color: darkslategrey;
+    color: white;
+}
+
+.operador_aritmetico{
+    background-color: darkviolet;
+    color: white;
+}
+
+.operador_comparacion{
+    background-color: dimgray;
+    color: white;
+}
+
+.operador_logico{
+    background-color: indianred;
+    color: black;
+}
+
+.operador_bit{
+    background-color: midnightblue;
+    color: white;
+}
+
+.operador_puntero{
+    background-color: yellow;
+    color: black;
+}
+
+.asignacion{
+    background-color: indigo;
+    color: white;
+}
+
+.operador{
+    background-color: orangered;
+    color: black;
+}
+
+.entero{
+    background-color: lightskyblue;
+    color: black;
+}
+
+.flotante{
+    background-color: lightgreen;
+    color: black;
+}
+
+.variable{
+    background-color: lightcoral;
+    color: black;
+}
