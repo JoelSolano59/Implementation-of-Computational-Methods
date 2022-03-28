@@ -1,8 +1,5 @@
 comentario //Joel Solano
 salto <br/>
-incluir #include
-libreria <stdio.h>
-salto <br/>
 definir #define
 variable var_0
 salto <br/>

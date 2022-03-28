@@ -64,7 +64,6 @@
 "cout"                          fprintf(yyout, "salida_consola ");fprintf(yyout, "%s\n", yytext);
 "cin"                           fprintf(yyout, "entrada_consola ");fprintf(yyout, "%s\n", yytext);
 
-
 \+[^[:blank:]][a-zA-Z_0-9]*     fprintf(yyout, "operador_aritmetico ");fprintf(yyout, "%s\n", yytext);
 \+\+[^[:blank:]][a-zA-Z_0-9]*   fprintf(yyout, "operador_aritmetico ");fprintf(yyout, "%s\n", yytext);
 [a-zA-Z_0-9]*[^[:blank:]]\+\+   fprintf(yyout, "operador_aritmetico ");fprintf(yyout, "%s\n", yytext);

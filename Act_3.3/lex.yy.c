@@ -1181,277 +1181,277 @@ fprintf(yyout, "entrada_consola ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 68 "myscanner.l"
+#line 67 "myscanner.l"
 fprintf(yyout, "operador_aritmetico ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 69 "myscanner.l"
+#line 68 "myscanner.l"
 fprintf(yyout, "operador_aritmetico ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 70 "myscanner.l"
+#line 69 "myscanner.l"
 fprintf(yyout, "operador_aritmetico ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 71 "myscanner.l"
+#line 70 "myscanner.l"
 fprintf(yyout, "operador_aritmetico ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 72 "myscanner.l"
+#line 71 "myscanner.l"
 fprintf(yyout, "operador_aritmetico ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 73 "myscanner.l"
+#line 72 "myscanner.l"
 fprintf(yyout, "operador_aritmetico ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 74 "myscanner.l"
+#line 73 "myscanner.l"
 fprintf(yyout, "operador_aritmetico ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 75 "myscanner.l"
+#line 74 "myscanner.l"
 fprintf(yyout, "operador_aritmetico ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
-#line 76 "myscanner.l"
+#line 75 "myscanner.l"
 fprintf(yyout, "operador_aritmetico ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
-#line 77 "myscanner.l"
+#line 76 "myscanner.l"
 fprintf(yyout, "operador_aritmetico ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
-#line 78 "myscanner.l"
+#line 77 "myscanner.l"
 fprintf(yyout, "operador_aritmetico ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
-#line 80 "myscanner.l"
+#line 79 "myscanner.l"
 fprintf(yyout, "operador_comparacion ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
-#line 81 "myscanner.l"
+#line 80 "myscanner.l"
 fprintf(yyout, "operador_comparacion ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 63:
 YY_RULE_SETUP
-#line 82 "myscanner.l"
+#line 81 "myscanner.l"
 fprintf(yyout, "operador_comparacion ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 64:
 YY_RULE_SETUP
-#line 83 "myscanner.l"
+#line 82 "myscanner.l"
 fprintf(yyout, "operador_comparacion ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 65:
 YY_RULE_SETUP
-#line 84 "myscanner.l"
+#line 83 "myscanner.l"
 fprintf(yyout, "operador_comparacion ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 66:
 YY_RULE_SETUP
-#line 85 "myscanner.l"
+#line 84 "myscanner.l"
 fprintf(yyout, "operador_comparacion ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 67:
 YY_RULE_SETUP
-#line 87 "myscanner.l"
+#line 86 "myscanner.l"
 fprintf(yyout, "operador_logico ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 68:
 YY_RULE_SETUP
-#line 88 "myscanner.l"
+#line 87 "myscanner.l"
 fprintf(yyout, "operador_logico ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 69:
 YY_RULE_SETUP
-#line 89 "myscanner.l"
+#line 88 "myscanner.l"
 fprintf(yyout, "operador_logico ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 70:
 YY_RULE_SETUP
-#line 91 "myscanner.l"
+#line 90 "myscanner.l"
 fprintf(yyout, "operador_bit ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 71:
 YY_RULE_SETUP
-#line 92 "myscanner.l"
+#line 91 "myscanner.l"
 fprintf(yyout, "operador_bit ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 72:
 YY_RULE_SETUP
-#line 93 "myscanner.l"
+#line 92 "myscanner.l"
 fprintf(yyout, "operador_bit ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 73:
 YY_RULE_SETUP
-#line 94 "myscanner.l"
+#line 93 "myscanner.l"
 fprintf(yyout, "operador_bit ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 74:
 YY_RULE_SETUP
-#line 95 "myscanner.l"
+#line 94 "myscanner.l"
 fprintf(yyout, "operador_bit ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 75:
 YY_RULE_SETUP
-#line 96 "myscanner.l"
+#line 95 "myscanner.l"
 fprintf(yyout, "operador_bit ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 76:
 YY_RULE_SETUP
-#line 98 "myscanner.l"
+#line 97 "myscanner.l"
 fprintf(yyout, "operador_puntero ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 77:
 YY_RULE_SETUP
-#line 99 "myscanner.l"
+#line 98 "myscanner.l"
 fprintf(yyout, "operador_puntero ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 78:
 YY_RULE_SETUP
-#line 100 "myscanner.l"
+#line 99 "myscanner.l"
 fprintf(yyout, "operador_puntero ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 79:
 YY_RULE_SETUP
-#line 102 "myscanner.l"
+#line 101 "myscanner.l"
 fprintf(yyout, "asignacion ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 80:
 YY_RULE_SETUP
-#line 103 "myscanner.l"
+#line 102 "myscanner.l"
 fprintf(yyout, "asignacion ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 81:
 YY_RULE_SETUP
-#line 104 "myscanner.l"
+#line 103 "myscanner.l"
 fprintf(yyout, "asignacion ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 82:
 YY_RULE_SETUP
-#line 105 "myscanner.l"
+#line 104 "myscanner.l"
 fprintf(yyout, "asignacion ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 83:
 YY_RULE_SETUP
-#line 106 "myscanner.l"
+#line 105 "myscanner.l"
 fprintf(yyout, "asignacion ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 84:
 YY_RULE_SETUP
-#line 107 "myscanner.l"
+#line 106 "myscanner.l"
 fprintf(yyout, "asignacion ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 85:
 YY_RULE_SETUP
-#line 108 "myscanner.l"
+#line 107 "myscanner.l"
 fprintf(yyout, "asignacion ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 86:
 YY_RULE_SETUP
-#line 109 "myscanner.l"
+#line 108 "myscanner.l"
 fprintf(yyout, "asignacion ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 87:
 YY_RULE_SETUP
-#line 110 "myscanner.l"
+#line 109 "myscanner.l"
 fprintf(yyout, "asignacion ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 88:
 YY_RULE_SETUP
-#line 111 "myscanner.l"
+#line 110 "myscanner.l"
 fprintf(yyout, "asignacion ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 89:
 YY_RULE_SETUP
-#line 112 "myscanner.l"
+#line 111 "myscanner.l"
 fprintf(yyout, "asignacion ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 90:
 YY_RULE_SETUP
-#line 114 "myscanner.l"
+#line 113 "myscanner.l"
 fprintf(yyout, "operador ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 91:
 YY_RULE_SETUP
-#line 115 "myscanner.l"
+#line 114 "myscanner.l"
 fprintf(yyout, "operador ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 92:
 YY_RULE_SETUP
-#line 116 "myscanner.l"
+#line 115 "myscanner.l"
 fprintf(yyout, "operador ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 93:
 YY_RULE_SETUP
-#line 117 "myscanner.l"
+#line 116 "myscanner.l"
 fprintf(yyout, "operador ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 94:
 YY_RULE_SETUP
-#line 118 "myscanner.l"
+#line 117 "myscanner.l"
 fprintf(yyout, "operador ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 95:
 YY_RULE_SETUP
-#line 119 "myscanner.l"
+#line 118 "myscanner.l"
 fprintf(yyout, "operador ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 96:
 YY_RULE_SETUP
-#line 120 "myscanner.l"
+#line 119 "myscanner.l"
 fprintf(yyout, "operador ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 97:
 YY_RULE_SETUP
-#line 121 "myscanner.l"
+#line 120 "myscanner.l"
 fprintf(yyout, "operador ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 98:
 YY_RULE_SETUP
-#line 122 "myscanner.l"
+#line 121 "myscanner.l"
 fprintf(yyout, "operador ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 99:
 YY_RULE_SETUP
-#line 124 "myscanner.l"
+#line 123 "myscanner.l"
 fprintf(yyout, "entero ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 100:
 YY_RULE_SETUP
-#line 125 "myscanner.l"
+#line 124 "myscanner.l"
 fprintf(yyout, "flotante ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 101:
 YY_RULE_SETUP
-#line 126 "myscanner.l"
+#line 125 "myscanner.l"
 fprintf(yyout, "variable ");fprintf(yyout, "%s\n", yytext);
 	YY_BREAK
 case 102:
 YY_RULE_SETUP
-#line 128 "myscanner.l"
+#line 127 "myscanner.l"
 ;
 	YY_BREAK
 case 103:
 YY_RULE_SETUP
-#line 129 "myscanner.l"
+#line 128 "myscanner.l"
 fprintf(yyout, "salto ");fprintf(yyout, "%s\n", "<br/>");
 	YY_BREAK
 case 104:
 YY_RULE_SETUP
-#line 130 "myscanner.l"
+#line 129 "myscanner.l"
 ECHO;
 	YY_BREAK
 #line 1458 "lex.yy.c"
@@ -2340,7 +2340,7 @@ int main()
 	return 0;
 	}
 #endif
-#line 130 "myscanner.l"
+#line 129 "myscanner.l"
 
 
 int yywrap(void){
