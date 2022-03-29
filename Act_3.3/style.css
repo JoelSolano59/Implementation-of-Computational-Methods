@@ -48,6 +48,11 @@
     color: black;
 }
 
+.constantes_compilacion{
+    background-color:crimson;
+    color: white;
+}
+
 .tipo_variable{
     background-color: darkorchid;
     color: white;
