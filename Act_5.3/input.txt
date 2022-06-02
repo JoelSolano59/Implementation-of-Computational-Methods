@@ -1,0 +1,47 @@
+//Joel Solano
+#define var_0
+
+union animal {
+    auto var_1;
+    const var_2;
+    extern int var_3;
+    register char var_4[10];
+}
+
+struct person {
+    short int var_5;
+    signed int var_6;
+    static int var_7;
+    unsigned var_8;
+    volatile int var_9;
+};
+
+char c;
+float f = 213.5
+bool var_10 = true, var_11 = false;
+
+int main(){
+    do{
+        for (int i = 0; i <= 1; i++){
+            cin >> var_4;
+            switch (var_7){
+                case 1:
+                    if (var_10 == true){
+                        continue;
+                    } else if (var_11 >= false){
+                        goto END;
+                    } else {
+                        return 0;
+                    }
+                    break;
+                default:
+                    cout >> error;
+                    break;
+            }
+        }
+    END:
+    } while (var_7 != true);
+    a = b + c;
+    a = b - c;
+    return 0;    
+}
